@@ -33,3 +33,28 @@ pipeline{
         }
     }
 }
+pipeline{
+    agent any
+    stages{
+        stage('github validation'){
+          steps{
+                git url:'https://github.com/krishna-is-coding/addressbook-cicd-project'
+          }
+        }
+        stage('compiling the code'){
+          steps{
+                 sh 'mvn compile'
+          }
+        }
+        stage('testing the code'){
+            steps{
+                sh 'mvn test'
+            }
+        }
+        stage('qa of the code'){
+            steps{
+                sh 'mvn pmd:pmd'
+            }
+        }
+    }
+}
